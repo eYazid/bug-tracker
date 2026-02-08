@@ -10,10 +10,13 @@ pipeline {
                 }
             }
             environment {
+                GOPATH = "${WORKSPACE}/.gopath"
+                GOMODCACHE = "${WORKSPACE}/.gopath/pkg/mod"
                 GOCACHE = "${WORKSPACE}/.cache/go-build"
+                HOME = "${WORKSPACE}"
             }
             steps {
-                sh 'mkdir -p "$GOCACHE"'
+                sh 'mkdir -p "$GOCACHE" "$GOMODCACHE" "$GOPATH"'
                 sh 'echo "Running unit tests for backend..."'
                 dir('bugtracker-backend') {
                     sh 'go test -v ./...'
