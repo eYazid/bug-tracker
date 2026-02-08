@@ -10,7 +10,7 @@ pipeline {
                 }
             }
             environment {
-                GOCACHE "${WORKSPACE}/.cache/go-build"
+                GOCACHE = "${WORKSPACE}/.cache/go-build"
             }
             steps {
                 sh 'mkdir -p "$GOCACHE"'
