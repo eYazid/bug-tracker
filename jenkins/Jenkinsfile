@@ -23,5 +23,26 @@ pipeline {
                 }
             }
         }
+        stage('Unit Tests - Frontend') {
+            agent {
+                docker {
+                    image 'node:20-alpine'
+                    reuseNode true
+                }
+            }
+            environment {
+                HOME = "${WORKSPACE}"
+            }
+            steps {
+                sh 'echo "Running unit tests for frontend..."'
+                dir('bugtracker-frontend') {
+                    sh '''
+                    npm ci
+                    npm install
+                    npm test
+                    '''
+                }
+            }
     }
+}
 }
